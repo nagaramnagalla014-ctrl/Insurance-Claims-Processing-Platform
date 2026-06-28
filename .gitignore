@@ -1,0 +1,40 @@
+# Maven
+backend/target/
+*.class
+*.jar
+*.war
+
+# Node
+frontend/node_modules/
+frontend/build/
+
+# IDE
+.idea/
+*.iml
+.eclipse/
+.settings/
+.project
+.classpath
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Uploads
+uploads/
+
+# Docker volumes
+oracle_data/
+es_data/
+
+# Environment
+application-prod.properties
+.env
+
+# Claude
+.claude/
