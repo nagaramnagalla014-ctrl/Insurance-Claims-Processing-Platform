@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClaimSure — Insurance Claims Processing Platform</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{--bg:#080c14;--card:rgba(255,255,255,0.035);--border:rgba(255,255,255,0.07);--text:#e2e8f0;--muted:#64748b;--blue:#4f8ef7;--purple:#8b5cf6;--green:#22d3a5;--red:#f43f5e;--yellow:#f59e0b;--cyan:#06d6c0}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;min-height:100vh}
+.demo-banner{background:rgba(245,158,11,0.15);border-bottom:1px solid rgba(245,158,11,0.3);color:#f59e0b;text-align:center;padding:8px;font-size:13px;font-weight:500}
+.navbar{display:flex;align-items:center;gap:24px;padding:0 24px;height:60px;background:rgba(13,20,36,0.95);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.nav-brand{font-size:18px;font-weight:700;background:linear-gradient(135deg,#4f8ef7,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links{display:flex;gap:4px}
+.nav-link{padding:6px 14px;border-radius:6px;color:var(--muted);font-size:14px;font-weight:500;cursor:pointer;transition:all .2s}
+.nav-link:hover,.nav-link.active{background:rgba(79,142,247,0.12);color:var(--blue)}
+.main{padding:24px;max-width:1400px;margin:0 auto}
+.tab{display:none}.tab.active{display:block}
+h1{font-size:22px;font-weight:700;margin-bottom:24px}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;display:flex;align-items:center;gap:14px}
+.si{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.si-b{background:rgba(79,142,247,0.15);color:var(--blue)}.si-g{background:rgba(34,211,165,0.15);color:var(--green)}.si-y{background:rgba(245,158,11,0.15);color:var(--yellow)}.si-p{background:rgba(139,92,246,0.15);color:var(--purple)}
+.sv{font-size:26px;font-weight:700;line-height:1}.sl{font-size:12px;color:var(--muted);margin-top:2px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:16px}
+.ch{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border);font-size:15px;font-weight:600}
+table{width:100%;border-collapse:collapse}
+th{padding:10px 16px;text-align:left;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;border-bottom:1px solid var(--border)}
+td{padding:12px 16px;font-size:13px;border-bottom:1px solid rgba(255,255,255,0.04)}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(255,255,255,0.02)}
+.badge{padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600}
+.bg{background:rgba(34,211,165,0.15);color:var(--green);border:1px solid rgba(34,211,165,0.3)}
+.bb{background:rgba(79,142,247,0.15);color:var(--blue);border:1px solid rgba(79,142,247,0.3)}
+.by{background:rgba(245,158,11,0.15);color:var(--yellow);border:1px solid rgba(245,158,11,0.3)}
+.br{background:rgba(244,63,94,0.15);color:var(--red);border:1px solid rgba(244,63,94,0.3)}
+.bp{background:rgba(139,92,246,0.15);color:var(--purple);border:1px solid rgba(139,92,246,0.3)}
+.pipeline{display:flex;gap:0;margin-bottom:24px;overflow-x:auto}
+.pipe-step{flex:1;min-width:120px;padding:16px 12px;background:var(--card);border:1px solid var(--border);border-right:none;text-align:center;position:relative}
+.pipe-step:last-child{border-right:1px solid var(--border);border-radius:0 10px 10px 0}
+.pipe-step:first-child{border-radius:10px 0 0 10px}
+.pipe-step::after{content:'›';position:absolute;right:-10px;top:50%;transform:translateY(-50%);font-size:18px;color:var(--muted);z-index:1}
+.pipe-step:last-child::after{display:none}
+.pc{font-size:22px;font-weight:700}.pl{font-size:11px;color:var(--muted);margin-top:4px}
+@media(max-width:900px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="demo-banner"><i class="fas fa-flask"></i> UI Demo — backend requires local setup (Java 11 · Spring Boot · React · Oracle · Elasticsearch · Docker)</div>
+<nav class="navbar">
+  <div class="nav-brand"><i class="fas fa-shield-halved"></i> ClaimSure</div>
+  <div class="nav-links">
+    <a class="nav-link active" onclick="showTab('dashboard',this)">Dashboard</a>
+    <a class="nav-link" onclick="showTab('claims',this)">Claims</a>
+    <a class="nav-link" onclick="showTab('adjuster',this)">Adjuster Queue</a>
+    <a class="nav-link" onclick="showTab('new',this)">New Claim</a>
+  </div>
+</nav>
+<main class="main">
+  <div id="tab-dashboard" class="tab active">
+    <h1>Claims Dashboard</h1>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="si si-b"><i class="fas fa-file-invoice"></i></div><div><div class="sv">2,841</div><div class="sl">Total Claims</div></div></div>
+      <div class="stat-card"><div class="si si-y"><i class="fas fa-clock"></i></div><div><div class="sv">184</div><div class="sl">Pending Review</div></div></div>
+      <div class="stat-card"><div class="si si-g"><i class="fas fa-circle-check"></i></div><div><div class="sv">2,401</div><div class="sl">Settled</div></div></div>
+      <div class="stat-card"><div class="si si-p"><i class="fas fa-dollar-sign"></i></div><div><div class="sv">$4.2M</div><div class="sl">Total Payouts</div></div></div>
+    </div>
+    <div class="pipeline">
+      <div class="pipe-step"><div class="pc" style="color:var(--blue)">2,841</div><div class="pl">Submitted</div></div>
+      <div class="pipe-step"><div class="pc" style="color:var(--cyan)">2,710</div><div class="pl">Under Review</div></div>
+      <div class="pipe-step"><div class="pc" style="color:var(--purple)">2,580</div><div class="pl">Investigating</div></div>
+      <div class="pipe-step"><div class="pc" style="color:var(--yellow)">2,450</div><div class="pl">Approved</div></div>
+      <div class="pipe-step"><div class="pc" style="color:var(--green)">2,401</div><div class="pl">Settled</div></div>
+    </div>
+    <div class="card">
+      <div class="ch">Recent Claims</div>
+      <table><thead><tr><th>Claim ID</th><th>Policyholder</th><th>Type</th><th>Amount</th><th>Filed</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>CLM-9901</td><td>Arjun Mehta</td><td>Auto Accident</td><td>$8,400</td><td>2024-01-15</td><td><span class="badge by">Under Review</span></td></tr>
+        <tr><td>CLM-9900</td><td>Priya Nair</td><td>Property Damage</td><td>$24,000</td><td>2024-01-14</td><td><span class="badge bb">Investigating</span></td></tr>
+        <tr><td>CLM-9899</td><td>Suresh Rao</td><td>Medical Expense</td><td>$3,200</td><td>2024-01-14</td><td><span class="badge bg">Settled</span></td></tr>
+        <tr><td>CLM-9898</td><td>Deepa Sharma</td><td>Auto Theft</td><td>$18,500</td><td>2024-01-13</td><td><span class="badge bg">Settled</span></td></tr>
+        <tr><td>CLM-9897</td><td>Vikram Patel</td><td>Property Damage</td><td>$6,800</td><td>2024-01-12</td><td><span class="badge br">Rejected</span></td></tr>
+        <tr><td>CLM-9896</td><td>Anita Kumar</td><td>Medical Expense</td><td>$1,900</td><td>2024-01-12</td><td><span class="badge bg">Settled</span></td></tr>
+      </tbody></table>
+    </div>
+  </div>
+  <div id="tab-claims" class="tab">
+    <h1>All Claims</h1>
+    <div class="card">
+      <table><thead><tr><th>Claim ID</th><th>Policyholder</th><th>Policy No.</th><th>Type</th><th>Claimed</th><th>Approved</th><th>Adjuster</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>CLM-9901</td><td>Arjun Mehta</td><td>POL-44821</td><td>Auto Accident</td><td>$8,400</td><td>—</td><td>Sarah M.</td><td><span class="badge by">Under Review</span></td></tr>
+        <tr><td>CLM-9900</td><td>Priya Nair</td><td>POL-38122</td><td>Property Damage</td><td>$24,000</td><td>—</td><td>James K.</td><td><span class="badge bb">Investigating</span></td></tr>
+        <tr><td>CLM-9899</td><td>Suresh Rao</td><td>POL-29011</td><td>Medical Expense</td><td>$3,200</td><td>$3,200</td><td>Sarah M.</td><td><span class="badge bg">Settled</span></td></tr>
+        <tr><td>CLM-9898</td><td>Deepa Sharma</td><td>POL-51200</td><td>Auto Theft</td><td>$22,000</td><td>$18,500</td><td>James K.</td><td><span class="badge bg">Settled</span></td></tr>
+        <tr><td>CLM-9897</td><td>Vikram Patel</td><td>POL-33410</td><td>Property Damage</td><td>$6,800</td><td>$0</td><td>Sarah M.</td><td><span class="badge br">Rejected</span></td></tr>
+        <tr><td>CLM-9896</td><td>Anita Kumar</td><td>POL-28800</td><td>Medical Expense</td><td>$1,900</td><td>$1,900</td><td>James K.</td><td><span class="badge bg">Settled</span></td></tr>
+        <tr><td>CLM-9895</td><td>Ravi Gupta</td><td>POL-41900</td><td>Auto Accident</td><td>$11,200</td><td>$9,800</td><td>Sarah M.</td><td><span class="badge bg">Settled</span></td></tr>
+      </tbody></table>
+    </div>
+  </div>
+  <div id="tab-adjuster" class="tab">
+    <h1>Adjuster Queue</h1>
+    <div class="card">
+      <table><thead><tr><th>Claim ID</th><th>Policyholder</th><th>Type</th><th>Amount</th><th>Days Open</th><th>Priority</th><th>Action</th></tr></thead>
+      <tbody>
+        <tr><td>CLM-9901</td><td>Arjun Mehta</td><td>Auto Accident</td><td>$8,400</td><td>1</td><td><span class="badge bb">Normal</span></td><td><button onclick="alert('Opened claim CLM-9901 (demo)')" style="padding:4px 12px;border-radius:6px;border:1px solid rgba(79,142,247,0.4);background:transparent;color:var(--blue);cursor:pointer;font-size:12px">Review</button></td></tr>
+        <tr><td>CLM-9900</td><td>Priya Nair</td><td>Property Damage</td><td>$24,000</td><td>2</td><td><span class="badge br">High</span></td><td><button onclick="alert('Opened claim CLM-9900 (demo)')" style="padding:4px 12px;border-radius:6px;border:1px solid rgba(79,142,247,0.4);background:transparent;color:var(--blue);cursor:pointer;font-size:12px">Review</button></td></tr>
+        <tr><td>CLM-9894</td><td>Mohan Das</td><td>Medical Expense</td><td>$5,600</td><td>4</td><td><span class="badge by">Medium</span></td><td><button onclick="alert('Opened claim CLM-9894 (demo)')" style="padding:4px 12px;border-radius:6px;border:1px solid rgba(79,142,247,0.4);background:transparent;color:var(--blue);cursor:pointer;font-size:12px">Review</button></td></tr>
+        <tr><td>CLM-9888</td><td>Sunita Iyer</td><td>Auto Theft</td><td>$31,000</td><td>7</td><td><span class="badge br">High</span></td><td><button onclick="alert('Opened claim CLM-9888 (demo)')" style="padding:4px 12px;border-radius:6px;border:1px solid rgba(79,142,247,0.4);background:transparent;color:var(--blue);cursor:pointer;font-size:12px">Review</button></td></tr>
+      </tbody></table>
+    </div>
+  </div>
+  <div id="tab-new" class="tab">
+    <h1>File New Claim</h1>
+    <div class="card" style="max-width:700px">
+      <div class="ch">Claim Details</div>
+      <div style="padding:20px;display:flex;flex-direction:column;gap:14px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--muted)"><label>Policy Number</label><input type="text" placeholder="POL-XXXXX" style="background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-size:13px"></div>
+          <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--muted)"><label>Claim Type</label><select style="background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-size:13px"><option>Auto Accident</option><option>Property Damage</option><option>Medical Expense</option><option>Auto Theft</option><option>Natural Disaster</option></select></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--muted)"><label>Incident Date</label><input type="date" style="background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-size:13px"></div>
+          <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--muted)"><label>Estimated Amount ($)</label><input type="number" placeholder="0.00" style="background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-size:13px"></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--muted)"><label>Description</label><textarea rows="4" placeholder="Describe the incident in detail..." style="background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-size:13px;resize:vertical"></textarea></div>
+        <button onclick="alert('Claim submitted successfully! Reference: CLM-9902 (demo mode)')" style="padding:12px 24px;border-radius:8px;border:none;background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;font-size:14px;font-weight:600;cursor:pointer"><i class="fas fa-paper-plane"></i> Submit Claim</button>
+      </div>
+    </div>
+  </div>
+</main>
+<script>
+function showTab(t,el){document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.nav-link').forEach(x=>x.classList.remove('active'));document.getElementById('tab-'+t).classList.add('active');el.classList.add('active')}
+</script>
+</body>
+</html>
